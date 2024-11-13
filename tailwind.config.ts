@@ -1,6 +1,8 @@
-import type { Config } from "tailwindcss";
+// tailwind.config.js
 
-export default {
+const colors = require('./src/config/colors');
+
+module.exports = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -9,10 +11,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        backgroundBlack: colors.backgroundBlack,
+        accentWarmYellow: colors.accentWarmYellow,
+        softWhite: colors.softWhite,
+        lightGray: colors.lightGray,
       },
     },
   },
   plugins: [],
-} satisfies Config;
+};
