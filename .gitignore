@@ -42,4 +42,4 @@ next-env.d.ts
 
 
 # Ignore Firebase configuration file
-src/lib/firebaseconfig.ts
+
