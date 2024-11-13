@@ -4,7 +4,8 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "/Volumes/HACKED_SQL/peak-trader-academy/src/lib/firebaseConfig"; // Adjust path if needed
+import { auth } from "@/lib/firebaseConfig";
+ // Adjust path if needed
 import { TextField, Button, Box, Typography, CssBaseline, Container, Snackbar } from "@mui/material";
 import { FaChartLine } from "react-icons/fa"; // Trading theme icon
 import { useRouter } from "next/navigation";

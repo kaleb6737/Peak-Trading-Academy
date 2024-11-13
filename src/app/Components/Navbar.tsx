@@ -5,7 +5,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { FaUserCircle, FaBars } from "react-icons/fa";
-import { useUser } from "/Volumes/HACKED_SQL/peak-trader-academy/src/context/UserContext";
+import { useUser } from "@/context/UserContext";
+
 import {
   AppBar,
   Toolbar,
