@@ -9,7 +9,7 @@ import { FaChartLine, FaShieldAlt, FaBrain, FaExchangeAlt } from "react-icons/fa
 // Define the lessons data with icons
 const lessonsData = [
   { title: "Symbols", description: "Overview of trading symbols and their meanings.", link: "/sections/symbols", icon: <FaExchangeAlt /> },
-  { title: "Technical Analysis", description: "Learn how to analyze market trends and charts.", link: "/sections/technical-analysis", icon: <FaChartLine /> },
+  { title: "Technical Analysis", description: "Learn how to analyze market trends and charts.", link: "/sections/technicalAnalysis", icon: <FaChartLine /> },
   { title: "Risk Management", description: "Strategies to manage and mitigate trading risks.", link: "/sections/risk-management", icon: <FaShieldAlt /> },
   { title: "Psychology", description: "Understand the mindset needed for successful trading.", link: "/sections/psychology", icon: <FaBrain /> },
 ];

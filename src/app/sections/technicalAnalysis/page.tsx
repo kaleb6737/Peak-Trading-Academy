@@ -6,7 +6,7 @@ import { Card, CardContent, Typography, CircularProgress, Box, Tabs, Tab, Button
 
 const TechnicalAnalysisSection = () => { 
     const [currentCategory, setCurrentCategory] = useState('Technical Analysis');
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const router = useRouter();
 
     if (loading) { 
