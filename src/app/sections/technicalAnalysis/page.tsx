@@ -28,6 +28,10 @@ const TechnicalAnalysisSection = () => {
                     '&:hover': { bgcolor: '#DAA520' },
                 }}
             >Back</Button>
+
+            <Typography variant="h4" sx={{ color: '#D1C382', textAlign: 'center', mb: 4 }}>
+                {currentCategory} Overview
+            </Typography>
         </Box>
     )
 };
