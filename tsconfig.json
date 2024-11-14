@@ -1,34 +1,36 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "baseUrl": ".", // Ensures aliases resolve from the project root
+    "target": "ES2017", // Target ES2017 to ensure compatibility with modern browsers
+    "lib": ["dom", "dom.iterable", "esnext"], // Include relevant libraries
+    "allowJs": true, // Allow JavaScript files
+    "skipLibCheck": true, // Skip type checks for library files
+    "strict": true, // Enable strict type checking
+    "noEmit": true, // Do not emit compiled files
+    "esModuleInterop": true, // Enable ES module interop for CommonJS modules
+    "module": "esnext", // Use ESNext module system
+    "moduleResolution": "node", // Resolve modules using Node.js-style resolution
+    "resolveJsonModule": true, // Allow importing JSON files
+    "isolatedModules": true, // Ensure each file is treated as a separate module
+    "jsx": "preserve", // Preserve JSX for Next.js
+    "incremental": true, // Enable incremental compilation for faster builds
+    "baseUrl": ".", // Ensure aliases resolve from the project root
     "paths": {
-      "@/*": ["./src/*"] // Maps "@/something" to "src/something"
+      "@/*": ["./src/*"] // Alias "@/..." to "./src/..."
     },
     "plugins": [
       {
-        "name": "next"
+        "name": "next" // Enable Next.js-specific TypeScript plugin
       }
     ]
   },
   "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "src/**/*" // Includes all files under src/
+    "next-env.d.ts", // Include Next.js environment types
+    "**/*.ts", // Include TypeScript files
+    "**/*.tsx", // Include TypeScript JSX files
+    ".next/types/**/*.ts", // Include Next.js generated types
+    "src/**/*" // Include all files under src/
   ],
-  "exclude": ["node_modules"] // Excludes dependencies
+  "exclude": [
+    "node_modules" // Exclude dependencies
+  ]
 }

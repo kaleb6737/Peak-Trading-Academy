@@ -4,12 +4,14 @@ import yahooFinance from "yahoo-finance2";
 export const getSymbolOverview = async (symbol: string) => {
   try {
     const quote = await yahooFinance.quote(symbol);
+    console.log("Quote data:", quote); // Debugging line
     return quote;
   } catch (error) {
     console.error(`Error fetching data for ${symbol}:`, error);
     throw error;
   }
 };
+
 
 // Fetch historical data for a symbol
 export const getHistoricalData = async (
