@@ -1,5 +1,3 @@
-// src/app/Components/Navbar/Navbar.tsx
-
 "use client";
 
 import Link from "next/link";
@@ -26,21 +24,22 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-// Custom colors
+// Custom Colors and Styling
 const accentWarmYellow = "#D1C382";
 const hoverGold = "#DAA520";
 const menuBgColor = "#1a1a1a";
 
-// Styled Typography for title and menu links
+// Styled Typography
 const AccentText = styled(Typography)({
   color: accentWarmYellow,
+  fontWeight: "bold",
   "&:hover": {
     color: hoverGold,
     transition: "color 0.3s ease",
   },
 });
 
-// Navbar component
+// Navbar Component
 const Navbar = () => {
   const { user, signOut } = useUser();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -48,7 +47,7 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // Open/close profile menu
+  // Menu Handling
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setIsDropdownOpen(true);
@@ -59,20 +58,38 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="fixed" sx={{ bgcolor: "black" }} elevation={4}>
-      <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+    <AppBar
+      position="fixed"
+      sx={{
+        bgcolor: "black",
+        zIndex: 1300,
+      }}
+    >
+      <Toolbar sx={{ display: "flex", justifyContent: "space-between", px: 4 }}>
         {/* Logo */}
         <Link href="/" passHref>
-          <AccentText variant="h5" sx={{ fontWeight: "bold", cursor: "pointer", transition: "transform 0.3s", "&:hover": { transform: "scale(1.1)" } }}>
+          <AccentText
+            variant="h5"
+            sx={{
+              cursor: "pointer",
+              transition: "transform 0.3s ease",
+              "&:hover": { transform: "scale(1.1)" },
+              textShadow: "2px 2px 10px rgba(255, 223, 0, 0.7)",
+            }}
+          >
             Peak Trader Academy
           </AccentText>
         </Link>
 
-        {/* Hamburger Menu Icon for Mobile */}
+        {/* Hamburger Icon for Mobile */}
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <IconButton
             onClick={() => setDrawerOpen(true)}
-            sx={{ color: accentWarmYellow }}
+            sx={{
+              color: accentWarmYellow,
+              transition: "transform 0.3s ease",
+              "&:hover": { transform: "rotate(90deg)" },
+            }}
           >
             <FaBars />
           </IconButton>
@@ -81,18 +98,56 @@ const Navbar = () => {
         {/* Desktop Links */}
         <Box sx={{ display: { xs: "none", md: "flex" }, gap: 4 }}>
           <Link href="/#dashboard" passHref>
-            <AccentText variant="h6" sx={{ fontWeight: "medium", cursor: "pointer" }}>Dashboard</AccentText>
+            <AccentText
+              variant="h6"
+              sx={{
+                cursor: "pointer",
+                textShadow: "1px 1px 5px rgba(255, 215, 0, 0.3)",
+                "&:hover": { textShadow: "2px 2px 10px rgba(255, 223, 0, 0.7)" },
+              }}
+            >
+              Dashboard
+            </AccentText>
           </Link>
           <Link href="/#lessons" passHref>
-            <AccentText variant="h6" sx={{ fontWeight: "medium", cursor: "pointer" }}>Lessons</AccentText>
+            <AccentText
+              variant="h6"
+              sx={{
+                cursor: "pointer",
+                textShadow: "1px 1px 5px rgba(255, 215, 0, 0.3)",
+                "&:hover": { textShadow: "2px 2px 10px rgba(255, 223, 0, 0.7)" },
+              }}
+            >
+              Lessons
+            </AccentText>
+          </Link>
+          <Link href="/#resources" passHref>
+            <AccentText
+              variant="h6"
+              sx={{
+                cursor: "pointer",
+                textShadow: "1px 1px 5px rgba(255, 215, 0, 0.3)",
+                "&:hover": { textShadow: "2px 2px 10px rgba(255, 223, 0, 0.7)" },
+              }}
+            >
+              Resources
+            </AccentText>
           </Link>
         </Box>
 
-        {/* Profile Icon and Dropdown for Logged-in User */}
+        {/* Profile Icon and Dropdown */}
         {user ? (
           <Box>
             <Tooltip title="Profile">
-              <IconButton onClick={handleMenuOpen} sx={{ color: accentWarmYellow, transition: "transform 0.2s", "&:hover": { color: hoverGold, transform: "scale(1.1)" } }}>
+              <IconButton
+                onClick={handleMenuOpen}
+                sx={{
+                  color: accentWarmYellow,
+                  transition: "transform 0.2s ease",
+                  "&:hover": { transform: "scale(1.1)", color: hoverGold },
+                  textShadow: "0px 4px 8px rgba(255, 215, 0, 0.5)",
+                }}
+              >
                 <FaUserCircle className="text-4xl" />
               </IconButton>
             </Tooltip>
@@ -104,69 +159,35 @@ const Navbar = () => {
                 sx: {
                   bgcolor: menuBgColor,
                   color: accentWarmYellow,
-                  boxShadow: "0px 6px 30px rgba(255, 215, 0, 0.25)",
                   mt: 1.5,
-                  "& .MuiMenuItem-root:hover": {
-                    bgcolor: "#333",
-                  },
+                  borderRadius: "8px",
+                  boxShadow: "0px 6px 20px rgba(255, 215, 0, 0.5)",
                 },
               }}
             >
               <MenuItem disabled>
-                <Typography variant="subtitle1">Hello, {user.name || "User"}</Typography>
+                <Typography variant="subtitle1">
+                  Hello, {user.name || "User"}
+                </Typography>
               </MenuItem>
               <MenuItem disabled>
                 <Typography variant="body2">{user.email}</Typography>
               </MenuItem>
               <Divider sx={{ bgcolor: accentWarmYellow, my: 1 }} />
-              <MenuItem
-                onClick={() => setShowSignOutConfirm(true)}
-                sx={{ color: accentWarmYellow, "&:hover": { bgcolor: "#333" } }}
-              >
+              <MenuItem onClick={() => signOut()} sx={{ "&:hover": { bgcolor: "#333" } }}>
                 Sign Out
               </MenuItem>
-              
-              {/* Sign-Out Confirmation */}
-              {showSignOutConfirm && (
-                <Box sx={{ mt: 1, px: 2 }}>
-                  <Typography variant="subtitle1" sx={{ color: accentWarmYellow }}>
-                    Are you sure you want to sign out?
-                  </Typography>
-                  <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1 }}>
-                    <Button
-                      onClick={() => setShowSignOutConfirm(false)}
-                      sx={{
-                        bgcolor: "#333",
-                        color: accentWarmYellow,
-                        fontWeight: "bold",
-                        "&:hover": { bgcolor: "#555" },
-                      }}
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        setShowSignOutConfirm(false);
-                        handleMenuClose();
-                        signOut();
-                      }}
-                      sx={{
-                        bgcolor: "#B22222",
-                        color: "white",
-                        fontWeight: "bold",
-                        "&:hover": { bgcolor: "#FF6347" },
-                      }}
-                    >
-                      Confirm
-                    </Button>
-                  </Box>
-                </Box>
-              )}
             </Menu>
           </Box>
         ) : (
           <Link href="/welcome" passHref>
-            <Button sx={{ color: accentWarmYellow, fontWeight: "bold", "&:hover": { color: hoverGold, transition: "color 0.3s ease" } }}>
+            <Button
+              sx={{
+                color: accentWarmYellow,
+                fontWeight: "bold",
+                "&:hover": { color: hoverGold },
+              }}
+            >
               Login
             </Button>
           </Link>
@@ -180,33 +201,56 @@ const Navbar = () => {
         onClose={() => setDrawerOpen(false)}
         PaperProps={{
           sx: {
-            bgcolor: "black",
+            bgcolor: "rgba(0, 0, 0, 0.9)",
             color: accentWarmYellow,
-            width: 240,
+            width: 280,
+            boxShadow: "0 4px 20px rgba(255, 215, 0, 0.5)",
           },
         }}
       >
         <List>
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => setDrawerOpen(false)} component={Link} href="/#dashboard">
-              <ListItemText primary="Dashboard" sx={{ color: accentWarmYellow, "&:hover": { color: hoverGold } }} />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => setDrawerOpen(false)} component={Link} href="/#lessons">
-              <ListItemText primary="Lessons" sx={{ color: accentWarmYellow, "&:hover": { color: hoverGold } }} />
-            </ListItemButton>
-          </ListItem>
+          {["Dashboard", "Lessons", "Resources"].map((text) => (
+            <ListItem disablePadding key={text}>
+              <ListItemButton
+                onClick={() => setDrawerOpen(false)}
+                component={Link}
+                href={`/#${text.toLowerCase()}`}
+              >
+                <ListItemText
+                  primary={text}
+                  sx={{
+                    textAlign: "center",
+                    color: accentWarmYellow,
+                    "&:hover": { color: hoverGold },
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
           {user ? (
             <ListItem disablePadding>
-              <ListItemButton onClick={() => setShowSignOutConfirm(true)}>
-                <ListItemText primary="Sign Out" sx={{ color: accentWarmYellow, "&:hover": { color: hoverGold } }} />
+              <ListItemButton onClick={() => signOut()}>
+                <ListItemText
+                  primary="Sign Out"
+                  sx={{
+                    textAlign: "center",
+                    color: accentWarmYellow,
+                    "&:hover": { color: hoverGold },
+                  }}
+                />
               </ListItemButton>
             </ListItem>
           ) : (
             <ListItem disablePadding>
-              <ListItemButton onClick={() => setDrawerOpen(false)} component={Link} href="/welcome">
-                <ListItemText primary="Login" sx={{ color: accentWarmYellow, "&:hover": { color: hoverGold } }} />
+              <ListItemButton component={Link} href="/welcome">
+                <ListItemText
+                  primary="Login"
+                  sx={{
+                    textAlign: "center",
+                    color: accentWarmYellow,
+                    "&:hover": { color: hoverGold },
+                  }}
+                />
               </ListItemButton>
             </ListItem>
           )}

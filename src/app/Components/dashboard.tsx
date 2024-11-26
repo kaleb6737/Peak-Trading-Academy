@@ -1,5 +1,3 @@
-// src/app/Components/Dashboard/Dashboard.tsx
-
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -7,7 +5,7 @@ import { FiTrendingUp } from "react-icons/fi";
 import { Typography, Box, Button, Container } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-// Custom styled component for blinking cursor effect
+// Custom styled components
 const BlinkingCursor = styled("span")({
   animation: "blinkingCursor 1s infinite",
   "@keyframes blinkingCursor": {
@@ -15,10 +13,28 @@ const BlinkingCursor = styled("span")({
     "50%": { opacity: 0 },
     "100%": { opacity: 1 },
   },
-  color: "#D1C286",
+  color: "#D1C382",
 });
 
-// Array of phrases for animated description
+const StyledButton = styled(Button)({
+  backgroundColor: "#D1C382",
+  color: "#000",
+  fontWeight: "bold",
+  fontSize: "1.2rem",
+  padding: "15px 30px",
+  marginTop: "40px",
+  borderRadius: "30px",
+  "&:hover": {
+    backgroundColor: "#F9D342",
+    boxShadow: "0 8px 20px rgba(255, 215, 0, 0.8)",
+  },
+  animation: "pulse 2s infinite",
+  "@keyframes pulse": {
+    "0%, 100%": { transform: "scale(1)" },
+    "50%": { transform: "scale(1.05)" },
+  },
+});
+
 const phrases = [
   "Welcome to Peak Trader Academy.",
   "Your gateway to mastering trading.",
@@ -28,22 +44,6 @@ const phrases = [
   "Join us and start your journey.",
 ];
 
-const StyledButton = styled(Button)({
-  backgroundColor: "#D1C286",
-  color: "black",
-  fontWeight: "bold",
-  padding: "10px 20px",
-  marginTop: "30px",
-  "&:hover": {
-    backgroundColor: "#DAA520",
-  },
-  animation: "pulse 2s infinite",
-  "@keyframes pulse": {
-    "0%, 100%": { transform: "scale(1)" },
-    "50%": { transform: "scale(1.05)" },
-  },
-});
-
 const Dashboard = () => {
   const [text, setText] = useState("");
   const fullText = "Peak Trader Academy";
@@ -51,7 +51,7 @@ const Dashboard = () => {
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [showContent, setShowContent] = useState(false);
 
-  // Typing effect for "Peak Trader Academy" title
+  // Typing effect for the main title
   useEffect(() => {
     if (index < fullText.length) {
       const timeout = setTimeout(() => {
@@ -66,7 +66,7 @@ const Dashboard = () => {
     }
   }, [index]);
 
-  // Loop through phrases with fade-in, fade-out effect
+  // Loop through phrases
   useEffect(() => {
     if (showContent) {
       const phraseInterval = setInterval(() => {
@@ -88,13 +88,32 @@ const Dashboard = () => {
         justifyContent: "center",
         minHeight: "100vh",
         textAlign: "center",
-        backgroundColor: "#000000",
-        color: "#D1C286",
+        backgroundSize: "400% 400%",
+        animation: "gradientBG 10s ease infinite",
+        color: "#D1C382",
         padding: "40px",
+        "@keyframes gradientBG": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
+        },
       }}
     >
-      {/* Animated Title */}
-      <Typography variant="h1" sx={{ fontWeight: "bold", fontSize: { xs: "3rem", md: "5rem" }, color: "#D1C286" }}>
+      {/* Main Animated Title */}
+      <Typography
+        variant="h1"
+        sx={{
+          fontWeight: "bold",
+          fontSize: { xs: "3rem", md: "5rem" },
+          color: "#D1C382",
+          textShadow: "0 0 20px rgba(255, 215, 0, 0.8)",
+          animation: "fadeIn 2s ease-out",
+          "@keyframes fadeIn": {
+            "0%": { opacity: 0 },
+            "100%": { opacity: 1 },
+          },
+        }}
+      >
         {text}
         <BlinkingCursor>|</BlinkingCursor>
       </Typography>
@@ -105,40 +124,42 @@ const Dashboard = () => {
           variant="h5"
           component="div"
           sx={{
-            color: "#D1C286",
+            color: "#D1C382",
             marginTop: 3,
             animation: "fade 3s ease-in-out infinite",
             "@keyframes fade": {
               "0%": { opacity: 0 },
-              "10%, 90%": { opacity: 1 },
+              "20%, 80%": { opacity: 1 },
               "100%": { opacity: 0 },
             },
             fontSize: { xs: "1.2rem", md: "1.5rem" },
             fontWeight: 500,
+            textShadow: "0 0 10px rgba(255, 215, 0, 0.5)",
           }}
         >
           {phrases[phraseIndex]}
         </Typography>
       )}
 
-      {/* Animated Trading Icon */}
+      {/* Bouncing Icon */}
       {showContent && (
         <Box
           sx={{
-            color: "#D1C286",
+            color: "#D1C382",
             marginTop: "50px",
             animation: "bounce 2s infinite",
             "@keyframes bounce": {
               "0%, 100%": { transform: "translateY(0)" },
-              "50%": { transform: "translateY(-10px)" },
+              "50%": { transform: "translateY(-15px)" },
             },
+            textShadow: "0 0 15px rgba(255, 215, 0, 0.8)",
           }}
         >
-          <FiTrendingUp size={80} />
+          <FiTrendingUp size={100} />
         </Box>
       )}
 
-      {/* Button to Scroll to Lessons Section */}
+      {/* Button to Navigate to Lessons Section */}
       {showContent && (
         <StyledButton href="#lessons">
           Explore Lessons

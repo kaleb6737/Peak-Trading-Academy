@@ -7,6 +7,7 @@ import Navbar from "./Components/Navbar";
 import Dashboard from "./Components/dashboard";
 import Lessons from "./sections/Lessons/lessons";
 import Welcome from "./Components/Welcome";
+import ResourceSection from "./sections/Resources/resources";
 import { UserProvider } from "../context/UserContext"; // Import UserProvider
 
 export default function Home() {
@@ -38,6 +39,7 @@ export default function Home() {
             <Navbar />
             <Dashboard />
             <Lessons />
+            <ResourceSection />
           </div>
         ) : (
           <Welcome />
