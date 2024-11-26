@@ -104,7 +104,7 @@ const Welcome = () => {
       </Description>
       {/* Action Button */}
       <AnimatedButton onClick={() => router.push("/auth")}>
-        Login / SignUp <FaArrowRight />
+        Login / git SignUp <FaArrowRight />
       </AnimatedButton>
     </GradientBackground>
   );
