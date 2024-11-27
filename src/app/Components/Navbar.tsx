@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaUserCircle, FaBars } from "react-icons/fa";
 import { useUser } from "@/context/UserContext";
 
@@ -30,22 +30,22 @@ const hoverGold = "#DAA520";
 const menuBgColor = "#1a1a1a";
 
 // Styled Typography
-const AccentText = styled(Typography)({
-  color: accentWarmYellow,
+const AccentText = styled(Typography)(({ isActive }: { isActive: boolean }) => ({
+  color: isActive ? hoverGold : accentWarmYellow,
   fontWeight: "bold",
-  "&:hover": {
-    color: hoverGold,
-    transition: "color 0.3s ease",
-  },
-});
+  cursor: "pointer",
+  transition: "color 0.3s ease",
+  textShadow: isActive
+    ? "2px 2px 10px rgba(255, 223, 0, 0.7)"
+    : "1px 1px 5px rgba(255, 215, 0, 0.3)",
+}));
 
-// Navbar Component
 const Navbar = () => {
   const { user, signOut } = useUser();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [showSignOutConfirm, setShowSignOutConfirm] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("dashboard");
 
   // Menu Handling
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -56,6 +56,30 @@ const Navbar = () => {
     setAnchorEl(null);
     setIsDropdownOpen(false);
   };
+
+  useEffect(() => {
+    const sections = ["dashboard", "lessons", "resources"];
+    const sectionElements = sections.map((id) =>
+      document.getElementById(id)
+    );
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { root: null, rootMargin: "0px", threshold: 0.6 }
+    );
+
+    sectionElements.forEach((el) => el && observer.observe(el));
+
+    return () => {
+      sectionElements.forEach((el) => el && observer.unobserve(el));
+    };
+  }, []);
 
   return (
     <AppBar
@@ -70,11 +94,10 @@ const Navbar = () => {
         <Link href="/" passHref>
           <AccentText
             variant="h5"
+            isActive={false}
             sx={{
-              cursor: "pointer",
               transition: "transform 0.3s ease",
               "&:hover": { transform: "scale(1.1)" },
-              textShadow: "2px 2px 10px rgba(255, 223, 0, 0.7)",
             }}
           >
             Peak Trader Academy
@@ -100,36 +123,18 @@ const Navbar = () => {
           <Link href="/#dashboard" passHref>
             <AccentText
               variant="h6"
-              sx={{
-                cursor: "pointer",
-                textShadow: "1px 1px 5px rgba(255, 215, 0, 0.3)",
-                "&:hover": { textShadow: "2px 2px 10px rgba(255, 223, 0, 0.7)" },
-              }}
+              isActive={activeSection === "dashboard"}
             >
               Dashboard
             </AccentText>
           </Link>
           <Link href="/#lessons" passHref>
-            <AccentText
-              variant="h6"
-              sx={{
-                cursor: "pointer",
-                textShadow: "1px 1px 5px rgba(255, 215, 0, 0.3)",
-                "&:hover": { textShadow: "2px 2px 10px rgba(255, 223, 0, 0.7)" },
-              }}
-            >
+            <AccentText variant="h6" isActive={activeSection === "lessons"}>
               Lessons
             </AccentText>
           </Link>
           <Link href="/#resources" passHref>
-            <AccentText
-              variant="h6"
-              sx={{
-                cursor: "pointer",
-                textShadow: "1px 1px 5px rgba(255, 215, 0, 0.3)",
-                "&:hover": { textShadow: "2px 2px 10px rgba(255, 223, 0, 0.7)" },
-              }}
-            >
+            <AccentText variant="h6" isActive={activeSection === "resources"}>
               Resources
             </AccentText>
           </Link>
@@ -145,7 +150,6 @@ const Navbar = () => {
                   color: accentWarmYellow,
                   transition: "transform 0.2s ease",
                   "&:hover": { transform: "scale(1.1)", color: hoverGold },
-                  textShadow: "0px 4px 8px rgba(255, 215, 0, 0.5)",
                 }}
               >
                 <FaUserCircle className="text-4xl" />
@@ -174,7 +178,10 @@ const Navbar = () => {
                 <Typography variant="body2">{user.email}</Typography>
               </MenuItem>
               <Divider sx={{ bgcolor: accentWarmYellow, my: 1 }} />
-              <MenuItem onClick={() => signOut()} sx={{ "&:hover": { bgcolor: "#333" } }}>
+              <MenuItem
+                onClick={() => signOut()}
+                sx={{ "&:hover": { bgcolor: "#333" } }}
+              >
                 Sign Out
               </MenuItem>
             </Menu>
@@ -220,7 +227,7 @@ const Navbar = () => {
                   primary={text}
                   sx={{
                     textAlign: "center",
-                    color: accentWarmYellow,
+                    color: activeSection === text.toLowerCase() ? hoverGold : accentWarmYellow,
                     "&:hover": { color: hoverGold },
                   }}
                 />
