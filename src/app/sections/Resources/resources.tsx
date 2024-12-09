@@ -8,13 +8,13 @@ const resources = {
     {
       title: 'Learn Trading Basics',
       description: 'A comprehensive guide to get started with trading.',
-      link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      link: 'https://www.youtube.com/watch?v=_YVQN6_nkfs&t=793s',
       thumbnail: 'https://source.unsplash.com/400x300/?trading,business',
     },
     {
       title: 'Understanding Forex',
       description: 'An insightful video about Forex trading strategies.',
-      link: 'https://www.youtube.com/watch?v=3JZ_D3ELwOQ',
+      link: 'https://www.youtube.com/results?search_query=Forex+tradign+for+beignner',
       thumbnail: 'https://source.unsplash.com/400x300/?forex,finance',
     },
   ],
